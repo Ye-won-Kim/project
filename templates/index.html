@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Recommender</title>
+  <link rel="stylesheet" href="static/css/index.css">
+  <script src="static/js/recommender.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <div class="page-wrapper">
+    <div class="container">
+      <h1>🎬 Movie Recommender 🎬</h1>
+      <p class="lead" >Type a movie you like to get similar recommendations.</p>
+
+      <form id="recommendation-form" class="form">
+        <div class="form-group">
+          <label for="movieTitle">Movie Title</label>
+          <input type="text" id="movieTitle" placeholder="e.g., The Matrix">
+          <ul id="autocompleteTitle" class="autocomplete-list"></ul>
+        </div>
+        <button type="button" id="recommendBtn">Recommend Movies</button>
+      </form>
+      <div id="result-container" class="card-container"></div>
+    </div>
+  </div>
+</body>
+<script>
+    movieRecommender.init()
+</script>
+</html>
