@@ -33,8 +33,7 @@ def movieTitle():
 @app.route("/detail/<int:tmdbId>")
 def movieDetail(tmdbId):
     poster = tmdbApi.get_poster_url(tmdbId)
-    print(poster)
-    return render_template("movieDatail.html", poster_path = poster)
+    return render_template("movieDetail.html", poster_path=poster)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -72,7 +72,6 @@ class MovieRecommender:
         if self.tags[self.tags.movieId ==(movieId)].tag.size > 0:
             tag = self.tags[self.tags.movieId ==(movieId)].tag.value_counts().index.tolist()
         return tag
-
+    
     def get_tmdbId(self, movieId):
-        return self.links[self.links.movieId ==(movieId)].tmdbId.values[0]
-            
+        return self.links[self.links.movieId == (movieId)].tmdbId.values[0]
