@@ -62,6 +62,7 @@ var movieRecommender = {
             const hashtags = (movie.Tag || []).map(tag => `<span class="hashtag-badge">#${tag}</span>`).join('');
 
             $('#result-container').append(`
+                <a href="detail/${movie.TmdbId}">
                 <div class="movie-card">
                     <div class="title">${movie.Title}<span class="year">(${movie.Year})</span></div>
                     <div class="genres">${badges}</div>
@@ -72,6 +73,7 @@ var movieRecommender = {
                     </div>
                     <div class="hashtags">${hashtags}</div> 
                 </div>
+                </a>
             `);
         })
     },

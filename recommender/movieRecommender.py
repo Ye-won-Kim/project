@@ -2,10 +2,11 @@ import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 
 class MovieRecommender:
-    def __init__(self, movies_path, ratings_path, tags_path):
+    def __init__(self, movies_path, ratings_path, tags_path, links_path):
         self.movies = pd.read_csv(movies_path)
         self.ratings = pd.read_csv(ratings_path)
         self.tags = pd.read_csv(tags_path)
+        self.links = pd.read_csv(links_path)
         self.movie_stats = None
         self.rating_matrix = None
         self.movie_similarity = None
@@ -51,6 +52,7 @@ class MovieRecommender:
             rating = self.movie_stats[self.movie_stats.movieId ==(movieId)].average_rating.values[0]
             count = self.movie_stats[self.movie_stats.movieId ==(movieId)].rating_count.values[0]
             tag = self.get_tags(movieId)
+            tmdbId = self.get_tmdbId(movieId)
             result.append({
                 'Rank': int(rank),
                 'Title': movie.title.values[0],
@@ -59,7 +61,8 @@ class MovieRecommender:
                 'Similarity': float(round(sim,2)),
                 'Average Rating': float(rating),
                 'Rating Count': int(count),
-                'Tag' : tag
+                'Tag' : tag,
+                'TmdbId' : int(tmdbId)
             })
             rank = rank+1
         return result
@@ -69,3 +72,7 @@ class MovieRecommender:
         if self.tags[self.tags.movieId ==(movieId)].tag.size > 0:
             tag = self.tags[self.tags.movieId ==(movieId)].tag.value_counts().index.tolist()
         return tag
+
+    def get_tmdbId(self, movieId):
+        return self.links[self.links.movieId ==(movieId)].tmdbId.values[0]
+            
