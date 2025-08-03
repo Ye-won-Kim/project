@@ -9,7 +9,7 @@ movieRecommender = MovieRecommender('ml-latest-small/movies.csv', 'ml-latest-sma
 def home():
     return render_template("index.html")
 
-
+# 제목으로 영화 추천
 @app.route("/movieRecommend", methods=['POST'])
 def movieRecommend():
     data = request.get_json()
@@ -21,6 +21,7 @@ def movieRecommend():
     else:
         return jsonify({'result':''})
 
+# 자동완성
 @app.route("/movieTitle", methods=["POST"])
 def movieTitle():
     query = request.get_json().get('query', '').lower()
