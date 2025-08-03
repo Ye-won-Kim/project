@@ -30,6 +30,7 @@ def movieTitle():
     titles = movieRecommender.get_titles(query)
     return jsonify(titles)
 
+# 영화 상세 페이지
 @app.route("/detail/<int:tmdbId>")
 def movieDetail(tmdbId):
     poster = tmdbApi.get_poster_url(tmdbId)
