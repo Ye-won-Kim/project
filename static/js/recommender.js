@@ -1,6 +1,7 @@
 var movieRecommender = {
     init:function(){
         this.event();
+        this.fnLoadRecentTitle();
     },
     event:function(){
         $('#recommendBtn').click(function(){
@@ -41,6 +42,7 @@ var movieRecommender = {
 
             }
         })
+        movieRecommender.fnSaveRecentTitle(movieTitle)
     },
     fnDrawResult : function(result){
         if(result.result==''){
@@ -106,5 +108,37 @@ var movieRecommender = {
             `);
         })
         $('#autocompleteTitle').show();      
+    },
+    fnSaveRecentTitle : function(title){
+        let recent = JSON.parse(localStorage.getItem('recentTitle')) || [];
+        recent = recent.filter(item => item !==title);
+        recent.unshift(title);
+        if(recent.length > 5) recent = recent.slice(0,5);
+
+        localStorage.setItem('recentTitle', JSON.stringify(recent));
+        movieRecommender.fnLoadRecentTitle();
+    },
+    fnLoadRecentTitle : function(){
+        let recent = JSON.parse(localStorage.getItem('recentTitle')) || [];
+        $('#recentTitle').empty();
+
+        if(recent.length>0){
+            const title = document.createElement('p');
+            title.textContent = '최근 검색어:';
+            $('#recentTitle').append(title);
+
+            const ul = document.createElement('ul');
+            recent.forEach(keyword => {
+                const li = document.createElement('li');
+                li.textContent = keyword;
+                li.classList.add('recent-item');
+                li.onclick = () => {
+                    input.value = keyword;
+                    input.focus();
+                };
+                ul.appendChild(li);
+            });
+            $('#recentTitle').append(ul);
+        }
     }
 }
